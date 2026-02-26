@@ -53,13 +53,12 @@ jobs:
 
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/cs6620-app:latest"
           CONTAINER_NAME="cs6620-app"
-
-          echo "Deploying image: $IMAGE to instance: ${{ secrets.EC2_INSTANCE_ID }}"
+          SHORT_SHA="${GITHUB_SHA::7}"
 
           COMMAND_ID=$(aws ssm send-command \
             --instance-ids "${{ secrets.EC2_INSTANCE_ID }}" \
             --document-name "AWS-RunShellScript" \
-            --comment "GitHub Actions deploy: pull latest image + restart container (commit ${{ github.sha }})" \
+            --comment "GitHub Actions deploy ${SHORT_SHA}" \
             --parameters commands="[
               \"sudo docker pull ${IMAGE}\",
               \"sudo docker stop ${CONTAINER_NAME} || true\",
