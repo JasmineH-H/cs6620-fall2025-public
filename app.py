@@ -523,6 +523,8 @@ def health():
         'timestamp': datetime.now().isoformat()
     }
 
+# remeber to intall docker on ec2
+
 # Auto-load CSV and audio files on startup
 def auto_load_data():
     """Try to auto-load CSV and audio files from default locations"""
